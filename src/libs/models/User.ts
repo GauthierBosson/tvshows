@@ -5,6 +5,8 @@ export interface UserProps extends Document {
   password: string
 }
 
+delete mongoose.connection.models['User']
+
 const UserSchema: Schema = new Schema({
   email: {
     type: String,
@@ -16,4 +18,6 @@ const UserSchema: Schema = new Schema({
   },
 })
 
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+// export default mongoose.models.User || mongoose.model('User', UserSchema)
+
+export default mongoose.model<UserProps>('User', UserSchema)

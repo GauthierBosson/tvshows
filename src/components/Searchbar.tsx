@@ -17,36 +17,42 @@ const Searchbar = (): JSX.Element => {
   }, [searchQuery])
 
   return (
-    <VStack spacing={4}>
+    <VStack w="40%" spacing={4}>
       <Input
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        w="40%"
         size="lg"
         rounded="full"
         placeholder="Search for your next show"
       />
       {searchQuery.length >= 5 ? (
-        <VStack divider={<StackDivider borderColor="gray.200" />}>
+        <>
           {isLoading ? (
             <span>Loading...</span>
           ) : (
-            <>
+            <Box
+              h="300px"
+              py={3}
+              overflowY="scroll"
+              w="100%"
+              borderWidth="1px"
+              borderRadius="3xl"
+            >
               {isError ? (
                 <span>error</span>
               ) : (
-                <>
+                <VStack w="100%" divider={<StackDivider borderColor="gray.200" />}>
                   {data.map((d) => (
-                    <Box key={d.id}>
+                    <Box key={d.id} py={3} px={4} w="100%">
                       <span>{d.name}</span>
                     </Box>
                   ))}
-                </>
+                </VStack>
               )}
-            </>
+            </Box>
           )}
-        </VStack>
+        </>
       ) : null}
     </VStack>
   )

@@ -1,7 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface WatchlistProps extends Document {
-  userId: Schema.Types.ObjectId
+  userId: Types._ObjectId
   shows: [
     {
       id: string
@@ -9,6 +9,8 @@ export interface WatchlistProps extends Document {
     }
   ]
 }
+
+delete mongoose.connection.models['Watchlist']
 
 const WatchlistSchema: Schema = new Schema({
   userId: {
@@ -28,5 +30,7 @@ const WatchlistSchema: Schema = new Schema({
   ],
 })
 
-export default mongoose.models.Watchlist ||
-  mongoose.model('Watchlist', WatchlistSchema)
+// export default mongoose.models.Watchlist ||
+//   mongoose.model<WatchlistProps>('Watchlist', WatchlistSchema)
+
+export default mongoose.model<WatchlistProps>('Watchlist', WatchlistSchema)
