@@ -39,6 +39,21 @@ const options = {
     async redirect(url: string, baseUrl: string) {
       return baseUrl
     },
+
+    async jwt(token, user) {
+      const isSignIn = user ? true : false
+
+      if (isSignIn) {
+        token.id = user._id
+      }
+
+      return token
+    },
+
+    async session(session, token) {
+      session.id = token.id
+      return session
+    },
   },
   pages: {
     signIn: '/login',

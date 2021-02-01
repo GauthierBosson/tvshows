@@ -10,9 +10,9 @@ export interface ShowProps {
   number_of_seasons: number
 }
 
-export const useFindSeries = (
+export const useFindShows = (
   queryParam: string,
-  isEnabled: boolean
+  queryLength: number
 ): UseQueryResult<ShowProps[], AxiosError> => {
   return useQuery(
     'getMovies',
@@ -22,7 +22,7 @@ export const useFindSeries = (
           `${process.env.NEXT_PUBLIC_API_URL}/search/tv?query=${queryParam}&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
         )
         .then((res) => res.data.results),
-    { enabled: isEnabled }
+    { enabled: queryLength >= 5 ? true : false }
   )
 }
 
@@ -36,7 +36,9 @@ export const useGetOneShow = (id: number): UseQueryResult<ShowProps, AxiosError>
   )
 }
 
-export const useWatchlistItems = (watchlist: []): UseQueryResult<any, any>[] => {
+export const useWatchlistItems = (
+  watchlist: [{ id: string }]
+): UseQueryResult<any, any>[] => {
   return useQueries(
     watchlist.map((w) => ({
       queryKey: ['watchlistItem', w.id],
