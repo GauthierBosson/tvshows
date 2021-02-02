@@ -9,7 +9,7 @@ const handler = nc<NextApiRequest, NextApiResponse>().get(async (req, res) => {
     await dbConnect()
     const { id } = req.query
     const watchlist = await Wacthlist.findOne({
-      userId: new Types.ObjectId(parseInt(id.toString())),
+      userId: new Types.ObjectId(id.toString()),
     })
     res.status(200).json({ success: true, data: watchlist })
   } catch (err) {

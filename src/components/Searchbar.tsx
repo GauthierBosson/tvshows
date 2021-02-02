@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useFindShows } from '../hooks/shows'
+import { useNewWatchlistItem } from '../hooks/watchlist'
 import { Input, VStack, StackDivider, Box } from '@chakra-ui/react'
 
 const Searchbar = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState<string>('')
-
   const { data, isLoading, isError, refetch } = useFindShows(
     searchQuery,
     searchQuery.length
   )
+  const mutation = useNewWatchlistItem()
 
   useEffect(() => {
     if (searchQuery.length >= 5) {
@@ -45,7 +46,12 @@ const Searchbar = (): JSX.Element => {
                 <VStack w="100%" divider={<StackDivider borderColor="gray.200" />}>
                   {data.map((d) => (
                     <Box key={d.id} py={3} px={4} w="100%">
-                      <span>{d.name}</span>
+                      <span>
+                        {d.name} -{' '}
+                        <button onClick={() => mutation.mutate({ id: d.id })}>
+                          Add to watchlist
+                        </button>
+                      </span>
                     </Box>
                   ))}
                 </VStack>

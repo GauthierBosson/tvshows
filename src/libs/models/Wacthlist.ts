@@ -4,7 +4,7 @@ export interface WatchlistProps extends Document {
   userId: Types._ObjectId
   shows: [
     {
-      id: string
+      showId: string
       watchedSeasons: [number]
     }
   ]
@@ -19,7 +19,7 @@ const WatchlistSchema: Schema = new Schema({
   },
   shows: [
     {
-      id: String,
+      showId: String,
       watchedSeasons: [
         {
           number: Number,

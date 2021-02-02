@@ -15,7 +15,7 @@ export const useFindShows = (
   queryLength: number
 ): UseQueryResult<ShowProps[], AxiosError> => {
   return useQuery(
-    'getMovies',
+    'getShows',
     () =>
       axios
         .get(
@@ -27,7 +27,7 @@ export const useFindShows = (
 }
 
 export const useGetOneShow = (id: number): UseQueryResult<ShowProps, AxiosError> => {
-  return useQuery('getOneMovie', () =>
+  return useQuery('getOneShow', () =>
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/tv/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
