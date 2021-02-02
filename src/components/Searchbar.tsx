@@ -48,7 +48,15 @@ const Searchbar = (): JSX.Element => {
                     <Box key={d.id} py={3} px={4} w="100%">
                       <span>
                         {d.name} -{' '}
-                        <button onClick={() => mutation.mutate({ id: d.id })}>
+                        <button
+                          onClick={() =>
+                            mutation.mutate({
+                              id: d.id,
+                              name: d.name,
+                              poster: d.poster_path,
+                            })
+                          }
+                        >
                           Add to watchlist
                         </button>
                       </span>

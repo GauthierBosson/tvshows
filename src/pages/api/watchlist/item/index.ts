@@ -7,12 +7,12 @@ import getUserId from '../../../../middlewares/getUserId'
 const handler = nc<NextApiRequest, NextApiResponse>()
   .use(getUserId)
   .post(async (req, res) => {
-    const { userId, id } = req.body
+    const { userId, id, name, poster } = req.body
     const oId = new Types.ObjectId(userId)
     try {
       const updatedWatchlist = await Wacthlist.updateOne(
         { userId: oId },
-        { $push: { shows: { showId: id, watchedSeasons: [] } } }
+        { $push: { shows: { showId: id, name, poster, watchedSeasons: [] } } }
       )
       res.status(200).json({ success: true, data: updatedWatchlist })
     } catch (err) {

@@ -17,7 +17,6 @@ const handler = nc<NextApiRequest, NextApiResponse>({ onError }).post(
       await dbConnect()
       const { email, password } = req.body
       const hashedPassword = await hashPassword(password)
-      // @ts-ignore
       const user = await User.create({ email, password: hashedPassword })
       const userId = new Types.ObjectId(user._id)
       await Wacthlist.create({ userId, shows: [] })

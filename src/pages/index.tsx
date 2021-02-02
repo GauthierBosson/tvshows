@@ -1,20 +1,14 @@
 import Head from 'next/head'
-import { QueryClient, useQuery } from 'react-query'
+import { QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import { getSession } from 'next-auth/client'
 import axios from 'axios'
-import { Grid, Text, Box } from '@chakra-ui/react'
 
 import Searchbar from '../components/Searchbar'
 import { GetServerSideProps } from 'next'
+import Watchlist from '../components/watchlist/Watchlist'
 
 const Home: React.FC<{ userId: string }> = ({ userId }) => {
-  const { data, isError, isLoading } = useQuery('watchlist', () =>
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/watchlist/user/${userId}`)
-      .then((res) => res.data.data)
-  )
-
   return (
     <>
       <Head>
@@ -23,35 +17,7 @@ const Home: React.FC<{ userId: string }> = ({ userId }) => {
       </Head>
       <main>
         <Searchbar />
-        {/**
-         * WATCHLIST COMPONENT
-         */}
-        {isLoading ? (
-          <span>Loading</span>
-        ) : (
-          <>
-            {isError ? (
-              <span>Error</span>
-            ) : (
-              <>
-                {data.shows?.length ? (
-                  <Grid
-                    gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-                    gap={6}
-                  >
-                    {data.shows.map((s, i) => (
-                      <Box key={i} border="1px solid black">
-                        <Text>{s.showId}</Text>
-                      </Box>
-                    ))}
-                  </Grid>
-                ) : (
-                  <p>Nothing on your watchlist yet</p>
-                )}
-              </>
-            )}
-          </>
-        )}
+        <Watchlist userId={userId} />
       </main>
       <footer></footer>
     </>

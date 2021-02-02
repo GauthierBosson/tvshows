@@ -2,6 +2,8 @@ import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface WatchlistProps extends Document {
   userId: Types._ObjectId
+  name: string
+  poster: string
   shows: [
     {
       showId: string
@@ -20,6 +22,8 @@ const WatchlistSchema: Schema = new Schema({
   shows: [
     {
       showId: String,
+      name: String,
+      poster: String,
       watchedSeasons: [
         {
           number: Number,

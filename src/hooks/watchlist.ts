@@ -7,7 +7,8 @@ export const useNewWatchlistItem = (): UseMutationResult<
 > => {
   const queryClient = useQueryClient()
   return useMutation(
-    (newItem: { id: string | number }) => axios.post('/api/watchlist/item', newItem),
+    (newItem: { id: string; name: string; poster: string }) =>
+      axios.post('/api/watchlist/item', newItem),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('watchlist')
