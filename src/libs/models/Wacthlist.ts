@@ -6,7 +6,6 @@ export interface WatchlistProps extends Document {
   poster: string
   shows: [
     {
-      _id: string
       showId: string
       name: string
       poster: string

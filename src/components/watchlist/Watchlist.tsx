@@ -35,7 +35,7 @@ const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
                 >
                   {data.shows.map((show) => (
                     <Show
-                      key={show._id}
+                      key={show.showId}
                       id={show.showId}
                       name={show.name}
                       poster={show.poster}
