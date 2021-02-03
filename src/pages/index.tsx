@@ -3,6 +3,7 @@ import { QueryClient } from 'react-query'
 import { dehydrate } from 'react-query/hydration'
 import { getSession } from 'next-auth/client'
 import axios from 'axios'
+import { Box } from '@chakra-ui/react'
 
 import Searchbar from '../components/Searchbar'
 import { GetServerSideProps } from 'next'
@@ -15,10 +16,10 @@ const Home: React.FC<{ userId: string }> = ({ userId }) => {
         <title>TV shows</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <Box as="main" px={[2, 2, 12, 16, 16]}>
         <Searchbar />
         <Watchlist userId={userId} />
-      </main>
+      </Box>
       <footer></footer>
     </>
   )

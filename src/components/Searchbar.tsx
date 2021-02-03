@@ -18,7 +18,13 @@ const Searchbar = (): JSX.Element => {
   }, [searchQuery])
 
   return (
-    <VStack w="40%" spacing={4}>
+    <VStack
+      position="relative"
+      w={['100%', '100%', '70%', '70%', '50%']}
+      spacing={4}
+      my={16}
+      mx="auto"
+    >
       <Input
         type="text"
         value={searchQuery}
@@ -39,6 +45,9 @@ const Searchbar = (): JSX.Element => {
               w="100%"
               borderWidth="1px"
               borderRadius="3xl"
+              bgColor="white"
+              pos="absolute"
+              top="50px"
             >
               {isError ? (
                 <span>error</span>

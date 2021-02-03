@@ -8,13 +8,39 @@ export const useNewWatchlistItem = (): UseMutationResult<
   const queryClient = useQueryClient()
   return useMutation(
     (newItem: { id: string; name: string; poster: string }) =>
-      axios.post('/api/watchlist/item', newItem),
+      axios.post('/api/watchlist/show', newItem),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('watchlist')
       },
     }
   )
+}
+
+export const useAddEpisode = (): UseMutationResult<
+  AxiosResponse,
+  AxiosError,
+  { showId: string; episode: number; seasonNumber: string }
+> => {
+  const queryClient = useQueryClient()
+  return useMutation((newItem) => axios.post('/api/watchlist/episode', newItem), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('watchlist')
+    },
+  })
+}
+
+export const useDeleteEpisode = (): UseMutationResult<
+  AxiosResponse,
+  AxiosError,
+  { showId: string; episode: number; seasonNumber: string }
+> => {
+  const queryClient = useQueryClient()
+  return useMutation((newItem) => axios.put('/api/watchlist/episode', newItem), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('watchlist')
+    },
+  })
 }
 
 // export const useGetUserWatchlist = (user) => {

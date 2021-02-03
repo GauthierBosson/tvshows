@@ -6,12 +6,19 @@ export interface WatchlistProps extends Document {
   poster: string
   shows: [
     {
+      _id: string
       showId: string
-      watchedSeasons: [number]
+      name: string
+      poster: string
+      watchedEpisodes: [string]
     }
   ]
 }
 
+/**
+ * https://github.com/dherault/serverless-offline/issues/258#issuecomment-709460076
+ * Thanks to this Next has no more issues with rebuilding models and TS doesn't panic anymore on mongoose fn call (like create)
+ */
 delete mongoose.connection.models['Watchlist']
 
 const WatchlistSchema: Schema = new Schema({
@@ -24,12 +31,7 @@ const WatchlistSchema: Schema = new Schema({
       showId: String,
       name: String,
       poster: String,
-      watchedSeasons: [
-        {
-          number: Number,
-          WatchedEpisodes: [Number],
-        },
-      ],
+      watchedEpisodes: [String],
     },
   ],
 })
