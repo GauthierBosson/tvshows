@@ -4,6 +4,7 @@ export interface WatchlistProps extends Document {
   userId: Types._ObjectId
   name: string
   poster: string
+  lastUpdated: Date | null
   shows: [
     {
       showId: string
@@ -30,6 +31,10 @@ const WatchlistSchema: Schema = new Schema({
       showId: String,
       name: String,
       poster: String,
+      lastUpdated: {
+        type: Date || null,
+        default: null,
+      },
       watchedEpisodes: [String],
     },
   ],

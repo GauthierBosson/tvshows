@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useFindShows } from '../hooks/shows'
 import { useNewWatchlistItem } from '../hooks/watchlist'
 import { Input, VStack, StackDivider, Box } from '@chakra-ui/react'
@@ -10,14 +10,13 @@ const Searchbar = (): JSX.Element => {
     searchQuery,
     searchQuery.length
   )
-  const searchRef = useRef(null)
   const mutation = useNewWatchlistItem()
 
   useEffect(() => {
     if (searchQuery.length >= 5) {
       refetch()
     }
-  }, [searchQuery, searchRef])
+  }, [searchQuery])
 
   return (
     <VStack
@@ -36,8 +35,9 @@ const Searchbar = (): JSX.Element => {
         placeholder="Search for your next show"
         aria-expanded={expanded}
         onFocus={() => setExpanded(true)}
-        onBlur={() => setExpanded(false)}
-        ref={searchRef}
+        onBlur={() => {
+          setTimeout(() => setExpanded(false), 100)
+        }}
       />
       {searchQuery.length >= 5 && expanded ? (
         <>

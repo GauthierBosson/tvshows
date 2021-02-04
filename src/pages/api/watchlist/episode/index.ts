@@ -15,7 +15,10 @@ const handler = nc<NextApiRequest, NextApiResponse>()
       const epStr = `${seasonNumber}-${episode}`
       const updatedShow = await Watchlist.updateOne(
         { $and: [{ userId: oId }, { 'shows.showId': showId }] },
-        { $push: { 'shows.$.watchedEpisodes': epStr } }
+        {
+          $push: { 'shows.$.watchedEpisodes': epStr },
+          $set: { 'shows.$.lastUpdated': new Date() },
+        }
       )
       res.status(200).json({ success: true, data: updatedShow })
     } catch (err) {
