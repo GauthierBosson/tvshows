@@ -1,4 +1,4 @@
-import { Box, Image, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Image, Text, useDisclosure, Progress } from '@chakra-ui/react'
 
 import ShowDetails from './details/ShowDetails'
 
@@ -14,11 +14,23 @@ const Show: React.FC<{
   const { onOpen, onClose, isOpen } = useDisclosure()
   return (
     <>
-      <Box onClick={onOpen} border="1px solid black">
+      <Box position="relative" cursor="pointer" onClick={onOpen}>
         <Image
+          rounded="xl"
+          shadow="2xl"
+          transition="0.3s all"
+          _hover={{ shadow: 'dark-lg' }}
           w="100%"
           src={`https://image.tmdb.org/t/p/w200${poster}`}
           alt={`${name}-poster`}
+        />
+        <Progress
+          position="absolute"
+          size="sm"
+          w="100%"
+          value={80}
+          roundedBottom="xl"
+          bottom="24px"
         />
         <Text>{name}</Text>
       </Box>
