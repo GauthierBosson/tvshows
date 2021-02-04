@@ -44,7 +44,3 @@ export const useDeleteEpisode = (): UseMutationResult<
     },
   })
 }
-
-// export const useGetUserWatchlist = (user) => {
-//   return useQuery('watchlist', () => axios.get(`${process.env.BASE_URL}/api/watchlist/user/${user.id}`))
-// }
