@@ -1,21 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useFindShows } from '../hooks/shows'
 import { useNewWatchlistItem } from '../hooks/watchlist'
 import { Input, VStack, StackDivider, Box } from '@chakra-ui/react'
 
 const Searchbar = (): JSX.Element => {
   const [searchQuery, setSearchQuery] = useState<string>('')
+  const [expanded, setExpanded] = useState<boolean>(false)
   const { data, isLoading, isError, refetch } = useFindShows(
     searchQuery,
     searchQuery.length
   )
+  const searchRef = useRef(null)
   const mutation = useNewWatchlistItem()
 
   useEffect(() => {
     if (searchQuery.length >= 5) {
       refetch()
     }
-  }, [searchQuery])
+  }, [searchQuery, searchRef])
 
   return (
     <VStack
@@ -32,8 +34,12 @@ const Searchbar = (): JSX.Element => {
         size="lg"
         rounded="full"
         placeholder="Search for your next show"
+        aria-expanded={expanded}
+        onFocus={() => setExpanded(true)}
+        onBlur={() => setExpanded(false)}
+        ref={searchRef}
       />
-      {searchQuery.length >= 5 ? (
+      {searchQuery.length >= 5 && expanded ? (
         <>
           {isLoading ? (
             <span>Loading...</span>
@@ -47,6 +53,7 @@ const Searchbar = (): JSX.Element => {
               borderRadius="3xl"
               bgColor="white"
               pos="absolute"
+              zIndex="1"
               top="50px"
             >
               {isError ? (

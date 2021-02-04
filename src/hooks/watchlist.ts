@@ -26,6 +26,7 @@ export const useAddEpisode = (): UseMutationResult<
   return useMutation((newItem) => axios.post('/api/watchlist/episode', newItem), {
     onSuccess: () => {
       queryClient.invalidateQueries('watchlist')
+      queryClient.invalidateQueries('getShowLength')
     },
   })
 }
@@ -39,6 +40,7 @@ export const useDeleteEpisode = (): UseMutationResult<
   return useMutation((newItem) => axios.put('/api/watchlist/episode', newItem), {
     onSuccess: () => {
       queryClient.invalidateQueries('watchlist')
+      queryClient.invalidateQueries('getShowLength')
     },
   })
 }

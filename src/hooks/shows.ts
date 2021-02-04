@@ -18,6 +18,10 @@ export interface ShowProps {
   ]
 }
 
+export interface ShowLengthProps {
+  number_of_episodes: number
+}
+
 export interface SeasonProps {
   episodes: [
     {
@@ -49,6 +53,18 @@ export const useGetOneShow = (
   id: number | string
 ): UseQueryResult<ShowProps, AxiosError> => {
   return useQuery('getOneShow', () =>
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/tv/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+      )
+      .then((res) => res.data)
+  )
+}
+
+export const useGetShowLength = (
+  id: number | string
+): UseQueryResult<ShowLengthProps, AxiosError> => {
+  return useQuery(['getShowLength', id], () =>
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/tv/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
