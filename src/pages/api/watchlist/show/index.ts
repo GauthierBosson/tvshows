@@ -14,7 +14,17 @@ const handler = nc<NextApiRequest, NextApiResponse>()
       const oId = new Types.ObjectId(userId)
       const updatedWatchlist = await Wacthlist.updateOne(
         { userId: oId },
-        { $push: { shows: { showId: id, name, poster, watchedEpisodes: [] } } }
+        {
+          $push: {
+            shows: {
+              showId: id,
+              name,
+              poster,
+              lastUpdated: null,
+              watchedEpisodes: [],
+            },
+          },
+        }
       )
       res.status(200).json({ success: true, data: updatedWatchlist })
     } catch (err) {
