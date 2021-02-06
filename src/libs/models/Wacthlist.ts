@@ -2,17 +2,15 @@ import mongoose, { Document, Schema, Types } from 'mongoose'
 
 export interface WatchlistProps extends Document {
   userId: Types._ObjectId
+  shows: [ShowProps]
+}
+
+export interface ShowProps extends Document {
+  showId: string
   name: string
   poster: string
   lastUpdated: Date | null
-  shows: [
-    {
-      showId: string
-      name: string
-      poster: string
-      watchedEpisodes: [string]
-    }
-  ]
+  watchedEpisodes: [string]
 }
 
 /**
