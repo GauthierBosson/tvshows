@@ -21,7 +21,7 @@ const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
 
   useEffect(() => {
     handleShowStateChange(showSelectRef.current.value)
-  }, [showSelectRef.current.value, data])
+  }, [showSelectRef.current, data])
 
   const handleShowStateChange = (value: string) => {
     if (value === 'ALL') {
