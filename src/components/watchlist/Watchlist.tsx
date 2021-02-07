@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { Grid, Select } from '@chakra-ui/react'
@@ -8,6 +8,7 @@ import { WatchlistProps, ShowProps } from '../../libs/models/Wacthlist'
 
 const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
   const [dataShows, setDataShows] = useState<ShowProps[]>([])
+  const showSelectRef = useRef<HTMLSelectElement>(null)
   const { data, isError, isLoading } = useQuery<WatchlistProps>('watchlist', () =>
     axios
       .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/watchlist/user/${userId}`)
@@ -17,6 +18,10 @@ const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
         return r
       })
   )
+
+  useEffect(() => {
+    handleShowStateChange(showSelectRef.current.value)
+  }, [showSelectRef.current.value, data])
 
   const handleShowStateChange = (value: string) => {
     if (value === 'ALL') {
@@ -37,7 +42,11 @@ const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <div>
-      <Select onChange={(e) => handleShowStateChange(e.target.value)} w="300px">
+      <Select
+        ref={showSelectRef}
+        onChange={(e) => handleShowStateChange(e.target.value)}
+        w="300px"
+      >
         <option value="ALL">Show all</option>
         <option value="LAST_WATCHED">Show last watched</option>
         <option value="NOT_STARTED">Show not begin</option>
