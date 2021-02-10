@@ -61,21 +61,26 @@ const Searchbar = (): JSX.Element => {
               ) : (
                 <VStack w="100%" divider={<StackDivider borderColor="gray.200" />}>
                   {data.map((d) => (
-                    <Box key={d.id} py={3} px={4} w="100%">
-                      <span>
-                        {d.name} -{' '}
-                        <button
-                          onClick={() =>
-                            mutation.mutate({
-                              id: d.id,
-                              name: d.name,
-                              poster: d.poster_path,
-                            })
-                          }
-                        >
-                          Add to watchlist
-                        </button>
-                      </span>
+                    <Box
+                      key={d.id}
+                      d="flex"
+                      justifyContent="space-between"
+                      py={3}
+                      px={4}
+                      w="100%"
+                    >
+                      <span>{d.name}</span>
+                      <button
+                        onClick={() =>
+                          mutation.mutate({
+                            id: d.id,
+                            name: d.name,
+                            poster: d.poster_path,
+                          })
+                        }
+                      >
+                        Add to watchlist
+                      </button>
                     </Box>
                   ))}
                 </VStack>

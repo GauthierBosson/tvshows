@@ -46,6 +46,7 @@ const Watchlist: React.FC<{ userId: string }> = ({ userId }) => {
         ref={showSelectRef}
         onChange={(e) => handleShowStateChange(e.target.value)}
         w="300px"
+        mb="30px"
       >
         <option value="ALL">Show all</option>
         <option value="LAST_WATCHED">Show last watched</option>
